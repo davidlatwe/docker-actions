@@ -6,9 +6,8 @@ SHELL ["cmd", "/S", "/C"]
 # Install Chocolatey
 RUN powershell iex(iwr -useb https://chocolatey.org/install.ps1)
 
-# Install Chocolatey packages
-RUN powershell.exe -ExecutionPolicy RemoteSigned `
-    choco install python3.7 -y -o -ia "'/qn /norestart ALLUSERS=1 TARGETDIR=c:\Python37'"
+# Install python
+RUN choco install python3.7 -y -o -ia "'/qn /norestart ALLUSERS=1 TARGETDIR=c:\Python37'"
 
 
 RUN setx `
