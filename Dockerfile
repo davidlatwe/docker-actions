@@ -4,9 +4,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019 as base
 SHELL ["cmd", "/S", "/C"]
 
 # Install Chocolatey
-RUN powershell.exe -ExecutionPolicy RemoteSigned `
-    iex (New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'); `
-    && SET "PATH=%PATH%;%ALLUSERSPROFILE%/chocolatey/bin"
+RUN powershell iex(iwr -useb https://chocolatey.org/install.ps1)
 
 # Install Chocolatey packages
 RUN powershell.exe -ExecutionPolicy RemoteSigned `
