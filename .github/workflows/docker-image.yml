@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag foo:$(date +%s)
+    - name: Docker Extract
+      uses: shrink/actions-docker-extract@v1
+      with:
+        image: foo:$(date +%s)
+        path: /build/.
+    - name: Upload Dist
+      uses: actions/upload-artifact@v2
+      with:
+        path: ${{ steps.extract.outputs.destination }}
+        name: dist
