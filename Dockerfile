@@ -10,8 +10,7 @@ RUN powershell iex(iwr -useb https://chocolatey.org/install.ps1)
 RUN choco install python3.7 -y -o -ia "'/qn /norestart ALLUSERS=1 TARGETDIR=c:\Python37'"
 
 
-RUN setx `
-    PATH "%PATH%;C:/Python37/Scripts"
+RUN setx PATH "%PATH%;C:/Python37/Scripts"
 
 
 WORKDIR /build
