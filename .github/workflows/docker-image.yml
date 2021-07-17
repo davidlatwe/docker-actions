@@ -14,15 +14,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag foo:$(date +%s)
-    - name: Docker Extract
-      uses: shrink/actions-docker-extract@v1
-      with:
-        image: foo:$(date +%s)
-        path: /build/.
-    - name: Upload Dist
+
+    - name: Run the Docker image
+      run: docker run foo:$(date +%s)
+
+    - name: Extract atrifact from container
+      run: docker cp foo:$(date +%s)/foo.txt ./build
+
+    - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        path: ${{ steps.extract.outputs.destination }}
-        name: dist
+        name: foo
+        path: ./build
