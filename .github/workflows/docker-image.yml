@@ -23,7 +23,7 @@ jobs:
       run: docker build . --file Dockerfile --tag ${env:DOCKER_IMG_TAG}
 
     - name: Run the Docker image
-      run: docker run ${env:DOCKER_IMG_TAG} --name ${env:DOCKER_CONTAINER} --detach
+      run: docker run --name ${env:DOCKER_CONTAINER} --detach ${env:DOCKER_IMG_TAG}
 
     - name: Extract atrifact from container
       run: docker cp ${env:DOCKER_CONTAINER}:C:/temp/build ./build
