@@ -26,7 +26,7 @@ jobs:
       run: docker run --name ${env:DOCKER_CONTAINER} --detach ${env:DOCKER_IMG_TAG}
 
     - name: Extract atrifact from container
-      run: docker cp ${env:DOCKER_CONTAINER}:C:/temp/build ./build
+      run: docker cp ${env:DOCKER_CONTAINER}:C:/build ./build
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
