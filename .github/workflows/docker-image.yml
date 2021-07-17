@@ -11,18 +11,21 @@ jobs:
   build:
 
     runs-on: windows-2019
+    
+    env:
+      DOCKER_IMG_TAG: foo:$(date +%s)
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag foo:$(date +%s)
+      run: docker build . --file Dockerfile --tag $DOCKER_IMG_TAG
 
     - name: Run the Docker image
-      run: docker run foo:$(date +%s)
+      run: docker run $DOCKER_IMG_TAG
 
     - name: Extract atrifact from container
-      run: docker cp foo:$(date +%s)/foo.txt ./build
+      run: docker cp $DOCKER_IMG_TAG/foo.txt ./build
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
