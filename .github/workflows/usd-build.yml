@@ -31,6 +31,9 @@ jobs:
     - name: Build
       run: python USD\build_scripts\build_usd.py ./build
 
+    - name: ls dir
+      run: dir ./build
+
     - name: Archiving artifact
       run: python -c "import shutil;shutil.make_archive('artifact', 'zip', 'build')"
     
