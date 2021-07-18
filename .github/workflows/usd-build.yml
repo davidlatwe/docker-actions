@@ -29,7 +29,10 @@ jobs:
       run: pip install pyside pyopengl jinja2
 
     - name: Install Choco dependency packages
-      run: choco install nasm -y; choco install ninja -y
+      run: choco install nasm ninja -y
+
+    - run: setx PATH=%PATH%;%PROGRAMFILES%/NASM
+      shell: cmd
 
     - name: Run build script
       run: python USD\build_scripts\build_usd.py --openvdb --openimageio --opencolorio --alembic --hdf5 ./build
