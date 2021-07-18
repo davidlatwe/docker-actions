@@ -1,0 +1,38 @@
+name: Export Container
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: windows-2019
+    
+    env:
+      DOCKER_FILE: vc-2017/Dockerfile
+      DOCKER_WORK_DIR: vc-2017
+      DOCKER_IMG_TAG: davidlatwe:vc-2017
+      DOCKER_CONTAINER: vc-2017
+      DOCKER_EXPORT_FILE: vc-2017.tar
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build the Docker image
+      run: docker build --file ${env:DOCKER_FILE} --tag ${env:DOCKER_IMG_TAG} ${env:DOCKER_WORK_DIR}
+
+    - name: Run the Docker image
+      run: docker run --name ${env:DOCKER_CONTAINER} --detach ${env:DOCKER_IMG_TAG}
+
+    - name: Export container
+      run: docker export ${env:DOCKER_CONTAINER} > ${env:DOCKER_EXPORT_FILE}
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: container
+        path: ./${{env.DOCKER_EXPORT_FILE}}
