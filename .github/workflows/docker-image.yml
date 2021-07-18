@@ -29,13 +29,10 @@ jobs:
       run: docker cp ${env:DOCKER_CONTAINER}:C:/build ./build
 
     - name: Archiving artifact
-      run: python -c "import shutil;shutil.make_archive('artifact', 'bztar', 'build')"
-
-    - name: ls dir
-      run: dir
+      run: python -c "import shutil;shutil.make_archive('artifact', 'zip', 'build')"
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: foo
-        path: ./artifact
+        path: ./artifact.zip
