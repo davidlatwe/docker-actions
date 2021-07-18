@@ -4,7 +4,7 @@ on: [push]
 
 env:
   PIXAR_USD_GIT_URL: https://github.com/PixarAnimationStudios/USD.git
-  PIXAR_USD_GIT_TAG: v21.02
+  PIXAR_USD_GIT_TAG: v21.05
 
 jobs:
   build:
@@ -17,16 +17,16 @@ jobs:
     - name: Setup MS Visual C++ dev-cmd-prompt
       uses: ilammy/msvc-dev-cmd@v1
     
-    - name: Setup Python 2.7
+    - name: Setup Python 3.7
       uses: actions/setup-python@v2
       with:
-        python-version: '2.7'
+        python-version: '3.7'
     
     - name: Pull Pixar/USD
       run: git clone --depth 1 --branch ${env:PIXAR_USD_GIT_TAG} ${env:PIXAR_USD_GIT_URL}
     
     - name: Install Python dependency packages
-      run: pip install pyside pyopengl jinja2
+      run: pip install pyside2 pyopengl jinja2
 
     - name: Install Choco dependency packages
       run: choco install nasm -y
@@ -34,7 +34,7 @@ jobs:
     - run: echo "C:\Program Files\NASM" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Run build script
-      run: python USD\build_scripts\build_usd.py ./install --build ./build --src ./downloads --dry_run
+      run: python USD\build_scripts\build_usd.py ./install --build ./build --src ./downloads
 
     - name: List build dir
       run: dir ./install
