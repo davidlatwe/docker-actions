@@ -32,7 +32,7 @@ jobs:
       run: python USD\build_scripts\build_usd.py ./build
 
     - name: Archiving artifact
-        run: python -c "import shutil;shutil.make_archive('artifact', 'zip', 'build')"
+      run: python -c "import shutil;shutil.make_archive('artifact', 'zip', 'build')"
     
     - name: Upload artifact
       uses: actions/upload-artifact@v2
