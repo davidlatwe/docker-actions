@@ -28,11 +28,14 @@ jobs:
     - name: Install dependencies
       run: pip install pyside pyopengl jinja2
 
-    - name: Build
-      run: python USD\build_scripts\build_usd.py ./build
+    - name: Run build script
+      run: python USD\build_scripts\build_usd.py --openvdb --openimageio --opencolorio --alembic --hdf5 ./build
 
-    - name: ls dir
+    - name: List build dir
       run: dir ./build
+
+    - name: Remove build sources
+      run: python -c "import shutil;shutil.rmtree('build/src');shutil.rmtree('build/build');"
 
     - name: Archiving artifact
       run: python -c "import shutil;shutil.make_archive('artifact', 'zip', 'build')"
