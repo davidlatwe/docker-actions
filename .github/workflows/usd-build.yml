@@ -31,8 +31,7 @@ jobs:
     - name: Install Choco dependency packages
       run: choco install nasm ninja -y
 
-    - run: setx PATH "%PATH%;%PROGRAMFILES%/NASM"
-      shell: cmd
+    - run: echo "C:\Program Files\NASM" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Run build script
       run: python USD\build_scripts\build_usd.py --openvdb --openimageio --opencolorio --alembic --hdf5 ./build
