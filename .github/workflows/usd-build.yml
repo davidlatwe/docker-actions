@@ -26,7 +26,7 @@ jobs:
       run: git clone --depth 1 --branch ${env:PIXAR_USD_GIT_TAG} ${env:PIXAR_USD_GIT_URL}
     
     - name: Install dependencies
-      run: pip install pyside
+      run: pip install pyside pyopengl jinja2
 
     - name: Build
       run: python USD\build_scripts\build_usd.py ./build
