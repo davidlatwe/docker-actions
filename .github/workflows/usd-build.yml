@@ -31,7 +31,7 @@ jobs:
     - name: Install Choco dependency packages
       run: choco install nasm ninja -y
 
-    - run: setx PATH %PATH%;%PROGRAMFILES%/NASM
+    - run: setx PATH "%PATH%;%PROGRAMFILES%/NASM"
       shell: cmd
 
     - name: Run build script
