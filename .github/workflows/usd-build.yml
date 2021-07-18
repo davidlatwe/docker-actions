@@ -14,11 +14,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Pull Pixar/USD
-      run: git clone --depth 1 --branch ${env:PIXAR_USD_GIT_TAG} ${env:PIXAR_USD_GIT_URL}
-
     - name: Setup MS Visual C++ dev-cmd-prompt
       uses: ilammy/msvc-dev-cmd@v1
+    
+    - name: Setup Python 2.7
+      uses: actions/setup-python@v2
+      with:
+        python-version: '2.7'
+    
+    - name: Pull Pixar/USD
+      run: git clone --depth 1 --branch ${env:PIXAR_USD_GIT_TAG} ${env:PIXAR_USD_GIT_URL}
+    
+    - name: Install dependencies
+      run: pip install pyside
 
     - name: Build
       run: python USD\build_scripts\build_usd.py ./build
