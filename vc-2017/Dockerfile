@@ -40,6 +40,14 @@ RUN $url = ('https://www.python.org/ftp/python/{0}/python-{1}-amd64.exe' -f $env
     \
     Write-Host 'Complete.'
 
+
+# Install Chocolatey
+RUN iex(iwr -useb https://chocolatey.org/install.ps1)
+
+# Install Chocolatey packages
+RUN choco install 7zip nasm git -y
+
+
 SHELL ["cmd", "/S", "/C"]
 
 
