@@ -8,6 +8,7 @@ env:
 
 jobs:
   build:
+    # For Visual Studio 2017
     runs-on: windows-2016
 
     steps:
@@ -18,9 +19,6 @@ jobs:
 
     - name: Setup MS Visual C++ dev-cmd-prompt
       uses: ilammy/msvc-dev-cmd@v1
-      with:
-        # Visual Studio 2017
-        toolset: 15.9
 
     - name: Build
       run: python USD\build_scripts\build_usd.py ./build
